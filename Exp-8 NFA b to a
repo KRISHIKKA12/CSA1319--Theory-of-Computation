@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+// Function prototypes
+bool isNFA(char *input);
+
+// Function to check if the string belongs to the language
+bool isNFA(char *input) {
+    if (*input == 'b') {
+        input++;
+        return isNFA(input) || (*input == 'a');
+    } else if (*input == '\0') {
+        return false;  // Reject empty string
+    }
+    return false;
+}
+
+int main() {
+    // Example strings
+    char string3[] = "baba";
+    char string4[] = "ba";
+
+    // Test the strings against the NFA 
+    printf("%s is %s\n", string3, isNFA(string3) ? "accepted" : "rejected");
+    printf("%s is %s\n", string4, isNFA(string4) ? "accepted" : "rejected");
+
+    return 0;
+}
