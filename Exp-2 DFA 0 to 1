@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdbool.h>
+int i;
+// DFA transition function
+int trans(int currentState, char input) {
+    switch (currentState) {
+        case 0:
+            return (input == '0') ? 1 : 0;
+        case 1:
+            return (input == '1') ? 1 : 0;
+        default:
+            return -1;  // Invalid state
+    }
+}
+// DFA simulation function
+bool simulateDFA(const char *input) {
+    int currentState = 0;  // Start in the initial state
+
+    for (i = 0; input[i] != '\0'; i++) {
+        currentState = trans(currentState, input[i]);
+
+        if (currentState == -1) {
+            printf("Invalid state encountered. Exiting.\n");
+            return false;
+        }
+    }
+
+    // Check if the final state is an accepting state (q1)
+    return currentState == 1;
+}
+
+int main() {
+    // Example strings
+    const char *string = "011";
+
+    // Test the DFA with example strings
+    printf("%s is %s\n", string, simulateDFA(string) ? "accepted" : "rejected");
+
+    return 0;
+}
